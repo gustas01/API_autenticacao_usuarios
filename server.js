@@ -1,10 +1,18 @@
 import express from 'express'
-import routes from './routes.js'
 import helmet from 'helmet'
+import userRoutes from './src/routes/userRoutes.js'
+import homeRoutes from './src/routes/homeRoutes.js'
 
 const app = express()
 
 app.use(express.urlencoded({extended: true}))
-app.use(routes)
+
+app.use('/users', userRoutes)
+app.use('/', homeRoutes)
+
+
+
 app.use(helmet())
-app.listen(3000, () => console.log('servidor executando na porta 3000 http://localhost:3000'))
+
+const port = 3000
+app.listen(port, () => console.log(`servidor executando na porta 3000 http://localhost:${port}`))
