@@ -1,29 +1,31 @@
-function index(req, res){
+import User from '../models/User'
+
+let homeController = {}
+
+homeController.index = async (req, res) => {
   res.status(200).json({tudCerto: true})
 }
 
 
-function create(req, res){
-  res.send("olá do controle no create")
+homeController.create = async (req, res) => {
+  res.send("olá do controler no create")
 }
 
 
-function read(req, res){
+homeController.read = async (req, res) => {
   res.send("olá do controle no read")
 }
 
 
-function update(req, res){
+homeController.update = async (req, res) => {
   res.send("olá do controle no update")
 }
 
 
-function deleteUser(req, res){
-  res.send("olá do controle no deleteUser")
+homeController.delete = async (req, res) => {
+  res.send("olá do controle no delete")
 }
 
 
 
-
-
-export default {index, create, read, update, deleteUser}
+export default homeController
