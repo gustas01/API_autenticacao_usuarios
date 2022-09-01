@@ -1,35 +1,39 @@
 import User from '../models/User'
 
-let homeController = {}
+let userController = {}
 
-homeController.index = async (req, res) => {
-  res.send("olá do controler do user no index")
+userController.index = async (req, res) => {
+  res.send("olá do controler do user no indexxx")
 }
 
 
-homeController.create = async (req, res) => {
-  const novoUser = await User.create({
-    email: "gustas@email.com",
-    password_hash: 'guxtax'
-  })
-  res.json(novoUser)
+userController.create = async (req, res) => {
+  try{
+    const novoUser = await User.create(req.body)
+    const {email, password} = novoUser
+    res.json({email, password})
+  }catch(e){
+    res.status(400).json({
+      errors: e.errors.map(err => err.message)
+    })
+  }
 }
 
 
-homeController.read = async (req, res) => {
+userController.read = async (req, res) => {
   res.send("olá do controle no read")
 }
 
 
-homeController.update = async (req, res) => {
+userController.update = async (req, res) => {
   res.send("olá do controle no update")
 }
 
 
-homeController.delete = async (req, res) => {
+userController.delete = async (req, res) => {
   res.send("olá do controle no delete")
 }
 
 
 
-export default homeController
+export default userController
