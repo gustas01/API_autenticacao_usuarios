@@ -32,7 +32,7 @@ const User = connection.define('User', {
         msg: 'A senha deve conter entre 6 e 50 caracteres'
       }
     }
-  }
+  },
 },
 {
   hooks: {
@@ -41,9 +41,9 @@ const User = connection.define('User', {
         user.password_hash = await bcryptjs.hash(user.password, 8)
       }
   }
-}
-})
-
+},
+},
+)
 // connection.addHook('beforeSave', async (user) => {
 //   if(user.dataValues.password){
 //     user.dataValues.password_hash = await bcryptjs.hash('asdsdfa', 8)
