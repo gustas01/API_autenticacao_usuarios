@@ -5,6 +5,8 @@ let userController = {}
 userController.index = async (req, res) => {
  try{
   const users = await User.findAll()
+  console.log('userId: ', req.userId);
+  console.log('userEmail: ', req.userEmail);
   res.json(users)
  }catch(e){
   res.status(400).json({
@@ -50,7 +52,6 @@ userController.read = async (req, res) => {
 
 userController.update = async (req, res) => {
   try{
-    console.log(req.params.id)
     if(!req.params.id){
       return res.status(404).json({errors: ["ID não enviado"]})
     }
