@@ -4,9 +4,9 @@ let userController = {}
 
 userController.index = async (req, res) => {
  try{
-  const users = await User.findAll()
-  console.log('userId: ', req.userId);
-  console.log('userEmail: ', req.userEmail);
+  const users = await User.findAll({attributes: ['id', 'email']})
+  // console.log('userId: ', req.userId);
+  // console.log('userEmail: ', req.userEmail);
   res.json(users)
  }catch(e){
   res.status(400).json({
@@ -52,18 +52,15 @@ userController.read = async (req, res) => {
 
 userController.update = async (req, res) => {
   try{
-    if(!req.params.id){
-      return res.status(404).json({errors: ["ID não enviado"]})
-    }
-
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.userId)
 
     if(!user){
       return res.status(404).json({errros: ["Usuário não encontrado"]})
     }
 
     const userUpdated = await user.update(req.body)
-    return res.status(200).json(userUpdated)
+    const {id, email} = userUpdated
+    return res.status(200).json({id, email})
 
   }catch(e){
     return res.status(400).json({
@@ -75,11 +72,7 @@ userController.update = async (req, res) => {
 
 userController.delete = async (req, res) => {
   try{
-    if(!req.params.id){
-      return res.status(400).json({errors: ["ID não enviado"]})
-    }
-
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.userId)
 
     if(!user){
       return res.status(404).json({errors: ["Usurário não encontrado"]})
@@ -88,13 +81,13 @@ userController.delete = async (req, res) => {
     //1ª forma de fazer
     User.destroy({
       where: {
-        id: req.params.id
+        id: req.userId
     }})
 
     //2ª forma de fazer
     // await user.destroy()
 
-    return res.status(200).json(user)
+    return res.status(200).json('usuário deletado')
   }catch(e){
     console.log(e)
     return res.status(200).json({
