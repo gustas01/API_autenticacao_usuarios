@@ -4,7 +4,7 @@ let userController = {}
 
 userController.index = async (req, res) => {
  try{
-  const users = await User.findAll({attributes: ['id', 'email']})
+  const users = await User.findAll({attributes: ['id', 'name', 'email']})
   // console.log('userId: ', req.userId);
   // console.log('userEmail: ', req.userEmail);
   res.json(users)
@@ -19,8 +19,8 @@ userController.index = async (req, res) => {
 userController.create = async (req, res) => {
   try{
     const novoUser = await User.create(req.body)
-    const {email, password} = novoUser
-    return res.json({email, password})
+    const {name, email, password} = novoUser
+    return res.json({name, email, password})
   }catch(e){
     res.status(400).json({
       errors: e.errors.map(err => err.message)
@@ -41,7 +41,7 @@ userController.read = async (req, res) => {
       return res.status(404).json({errors: ["Usuário não existe"]})
     }
 
-    return res.status(200).json({id: user.id, email: user.email})
+    return res.status(200).json({id: user.id, name: user.name, email: user.email})
   }catch(e){
     return res.status(400).json({
       errors: e.errors.map(err => err.message)
@@ -59,8 +59,8 @@ userController.update = async (req, res) => {
     }
 
     const userUpdated = await user.update(req.body)
-    const {id, email} = userUpdated
-    return res.status(200).json({id, email})
+    const {id, name, email} = userUpdated
+    return res.status(200).json({id, name, email})
 
   }catch(e){
     return res.status(400).json({

@@ -13,7 +13,7 @@ export default async(req, res, next) => {
 
   try{
     const dados = jwt.verify(token, process.env.TOKEN_SECRET)
-    const {id, email} = dados
+    const {id, name, email} = dados
 
     const user = await User.findOne({
       where: {
@@ -30,6 +30,7 @@ export default async(req, res, next) => {
 
     req.userId = id
     req.userEmail = email
+    req.userName = name
     return next()
   }catch(e){
     console.log(e);

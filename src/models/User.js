@@ -5,6 +5,11 @@ import bcryptjs from 'bcryptjs'
 const connection = new Sequelize(databaseConfig)
 
 const User = connection.define('User', {
+  name: {
+    type: Sequelize.STRING,
+    defaultValue: '',
+    allowNull: false,
+    },
   email: {
     type: Sequelize.STRING,
     defaultValue: '',
