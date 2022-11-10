@@ -10,7 +10,7 @@ E para manipular esses dados, é necessário estar logado no sistema com algum u
 
 ![diagrama-de-classes_user](https://user-images.githubusercontent.com/50846424/201192856-adc0ab96-1fc3-4382-a270-ef6fcce693b8.png)
 
-
+OBS: A senha do usuário é passada normalmente para a API tanto para criar o usuário quanto na hora do login, a API gera o hash automaticamente e salva no banco dessa forma.
 
 
 
